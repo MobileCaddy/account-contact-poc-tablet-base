@@ -1,0 +1,67 @@
+// accounts.scss
+
+#accounts-col {
+	width : 30%;
+	float: left;
+	border-right: 1px solid $positive;
+}
+
+#accounts-list .item {
+	padding: 5px 10px;
+}
+
+#accounts-list h1 {
+	font-size: 1em;
+	margin-bottom: 0;
+}
+
+#account-details {
+	float: left;
+	width: 68%;
+	margin-left: 1%;
+	height: 100%;
+}
+
+#account-summary {
+	min-height: 175px;
+	width: 100%;
+}
+
+#account-related {
+	border-top: 1px solid $positive;
+	width: 100%;
+}
+
+.poc-tab-button-bar {
+  background: lighten($positive, 5%);
+}
+
+button.button.button-clear {
+  color: white;
+}
+
+
+button.button.button-clear.button-positive.poc-tab-active-button {
+  font-weight: bold;
+  color: white;
+}
+
+#account-related .contact {
+	border-bottom: 1px solid $positive;
+}
+
+
+#account-related  ion-item a.item-content {
+	padding: 0;
+}
+
+#account-related  ion-item {
+	padding: 5px 16px 5px;
+	border-left-style: none !important;
+	border-right-style: none !important;
+	border-color: $positive !important;
+}
+
+button[disabled].ion-android-person-add {
+  color: lightblue;
+}

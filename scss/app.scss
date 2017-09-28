@@ -1,0 +1,191 @@
+// Import MobileCaddy SCSS
+@import 'mobilecaddy';
+
+// Ionic overrides
+
+$positive:              #1D87C9;
+$item-divider-bg:       #caecd3;
+$list-header-color:     #caecd3;
+//$button-light-border:   #7fd291;
+
+// Colors used in side menu
+$dark:                  #282828;
+$menu-bg:               $dark;
+
+@import "ionic/ionic";
+
+@import "loading";
+@import "accounts";
+
+// your slick app styles can go here...
+
+
+//  A P P    S T A R T    P A G E
+#start-page {
+  // Could style your apps startpage here.
+  height: 4000px; // needed to display whilst Ionic is initialising
+  background: url('../img/white_logo.png' ) no-repeat center 50px, $positive;
+  margin-top: -20px;
+}
+
+#start-page .card {
+  box-shadow: none;
+  background-color : transparent;
+}
+
+#start-page .card .item {
+  border: 0;
+  background-color : transparent;
+  width: 50%;
+  margin: 250px auto 0 auto;
+}
+
+#start-page .card .item p {
+
+  color: white;
+}
+
+ion-nav-view { background-color: #fff; }
+
+a.item-content:hover{
+	background-color: $item-divider-bg;}
+
+.card {box-shadow: 0 0px 0px $button-light-border;}
+
+.padding-left-10 {
+  padding-left: 5px !important;
+}
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+   color: grey;
+}
+
+
+.show-record-modal {
+    width: 60% !important;
+    height: 100% !important;
+    top: 0 !important;
+    left: 40% !important;
+}
+.search-input {
+  height: 50px;
+  margin-right: 0px;
+  border-right-width: 0px;
+}
+
+// OVERALL STYLING
+
+h1 {
+  margin-top: 10px;
+  font-size: 1.25em;
+  margin-bottom: 5px;
+}
+
+
+h2 {
+  font-size: 0.9em;
+  font-weight: bold;
+  line-height: 1.4em;
+  margin : 10px 0 8px;
+}
+
+.item h2 {
+  font-size: 0.9em;
+}
+
+p {
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+.labels-outputfields {
+  font-weight: bold;
+}
+
+// Centre text on modal popups
+.popup > .popup-body {
+  text-align: center;
+}
+
+.aggr-side-menu {
+  background-color: $dark !important;
+}
+
+.aggr-side-menu-title {
+  color: #fff !important;
+}
+
+.aggr-nav-icon {
+  color: $dark !important;
+}
+
+.aggr-text-wrap {
+  overflow: visible !important;
+  white-space: normal !important;
+}
+
+ion-list.aggr-side-menu-list ion-item a {
+  background-color: $dark !important;
+  color: #fff !important;
+}
+
+ion-list.aggr-side-menu-list ion-item {
+  border-color: #666 !important;
+}
+
+.aggr-no-record-selected {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.new-contact-button {
+  margin-top: 10px;
+  border-radius: 0;
+}
+
+.errorField {
+  font-size: 12px;
+  color: #df2b2a;
+}
+
+ion-modal-view {
+  height: 450px;
+}
+
+#accounts-col ion-list.sl-side-menu-list ion-item {
+  background-color: $dark !important;
+  color: #fff !important;
+}
+
+// Side menu
+ion-list.sl-side-menu-list ion-item a {
+  background-color: $dark !important;
+  color: #fff !important;
+}
+ion-list.sl-side-menu-list ion-item {
+  border-color: $dark !important;
+}
+.sl-side-menu-icon {
+  padding-right: 10px;
+  color: #fff;
+}
+
+// Logo in header
+.aggr-header-logo {
+  height: 25px;
+  padding-right: 10px;
+}
+.aggr-vertically-align {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.aggr-add-person-icon {
+  color: #fff;
+}
+.aggr-add-person-icon::before {
+  font-size: 25px !important;
+}

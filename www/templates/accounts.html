@@ -1,0 +1,255 @@
+<ion-view cache-view="false">
+
+  <ion-nav-title>
+    <div class="aggr-vertically-align">
+      <img ng-src="{{ ::vm.resourcePath }}img/logo.png" class="aggr-header-logo"/>
+      <span>Accounts</span>
+    </div>
+  </ion-nav-title>
+
+  <ion-nav-buttons side="right">
+      <mc-sync-spinner></mc-sync-spinner>
+  </ion-nav-buttons>
+
+	<ion-content padding="false" scroll="false">
+		<div id="accounts-col">
+            <ion-list class="sl-side-menu-list">
+            <ion-item ng-click="vm.addAccountWindow()" class="item-dark">
+                <i class="icon ion-android-person-add aggr-add-person-icon"></i>
+                New Account
+            </ion-item>
+            </ion-list>
+			<div class="item item-input search-input">
+		    <i class="icon ion-search placeholder-icon"></i>
+		    <input type="search" ng-model="vm.search.query" class="search-input" />
+		    <button ng-if="vm.search.query.length"
+		      class="button button-icon ion-android-close search-clear-button"
+		      ng-click="vm.clearSearch()">
+		    </button>
+		  </div>
+
+	    <ion-scroll zooming="false" direction="y" id="accounts-list" scrollbar-y="false">
+	      <ion-item class="item"
+	        ng-repeat="account in vm.accounts | filter:vm.search.query" type="item-text-wrap"
+          ng-class="{active: vm.account.Id === account.Id}"
+	        ng-click="vm.selectAccount(account)"
+	        >
+	        <h1>{{account.Name}}</h1>
+          <p>{{account.Type}}</p>
+          <p>{{account.AccountNumber}}</p>
+	      </ion-item>
+	    </ion-scroll>
+	  </div> <!-- accounts-col -->
+
+	  <div id="account-details">
+
+			<div id="account-summary">
+				<div ng-hide="vm.accountLoaded" class="poc-no-record-selected"><p>(No Account Selected)</p></div>
+
+        <div class="row" ng-show="vm.accountLoaded">
+          <div class="col">
+            <h1>Account Details</h1>
+            <p><span class="labels-outputfields">Name:</span>&nbsp;{{vm.account.Name}}</p>
+            <p><span class="labels-outputfields">Status:</span>&nbsp;{{vm.account.Status__c}}</p>
+            <p><span class="labels-outputfields">Primary Contact:</span>&nbsp;</p>
+          </div>
+          <div class="col">
+            <td>
+              <h1>Address</h1>
+              <p>{{vm.account.BillingStreet}}</p>
+              <p>{{vm.account.BillingCity}}</p>
+              <p>{{vm.account.BillingState}}</p>
+              <p>{{vm.account.BillingPostalCode}}</p>
+              <p>{{vm.account.BillingCountry}}</p>
+            </td>
+          </div>
+          <div class="col">
+            <h1>Other Details</h1>
+            <p><span class="labels-outputfields">Sector:</span>&nbsp;{{vm.account.Sector__c}}</p>
+            <p><span class="labels-outputfields">Segment:</span>&nbsp;</p>
+            <p><span class="labels-outputfields">Sub Region:</span>&nbsp;</p>
+            <p><span class="labels-outputfields">Account Owner:</span>&nbsp;</p>
+          </div>
+        </div>
+
+			</div> <!-- account summary -->
+
+			<div id="account-related">
+				<div class="button-bar poc-tab-button-bar">
+          <button class="button-icon icon ion-android-person-add aggr-add-person-icon"
+                  ng-click="vm.addContactWindow(vm.account.Id)"
+                  ng-disabled="vm.section=='assets'">
+          </button>
+          <button class="button button-clear {{vm.section == 'contacts' ? 'button-positive poc-tab-active-button' : ''}}"
+                  ng-click="vm.displaySection('contacts')">Contacts
+          </button>
+          <button class="button button-clear {{vm.section == 'assets' ? 'button-positive poc-tab-active-button' : ''}}"
+                  ng-click="vm.displaySection('assets')">Assets
+          </button>
+		    </div>
+
+        <!-- scrolling for assets and contacts -->
+        <ion-scroll zooming="false" direction="y" id="assets-and-contacts-list-scroll" scrollbar-y="false">
+          <div id="assets-and-contacts-list">
+            <div ng-switch="vm.section">
+
+              <!--
+                C O N T A C T S    L I S T
+              -->
+    		      <div ng-switch-when="contacts" class="hasPadding">
+
+<!--                       <button class="button button-positive new-contact-button"
+                              ng-click="vm.addContactWindow(vm.account.Id)">Create New
+                      </button> -->
+
+                <div class="loading"  ng-hide="vm.contactsLoaded"><h2></h2><p></p><h2></h2><p></p><h2></h2><p></p></div>
+                <ion-item class="contact"
+                  ng-repeat="contact in vm.contacts"
+                  >
+                  <div class="row">
+                    <div class="col">
+                      <h1>{{contact.Name}}</h1>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p><span class="labels-outputfields">Title:</span>&nbsp;{{contact.Title}}</p>
+                      <p><span class="labels-outputfields">Email:</span>&nbsp;{{contact.Email}}</p>
+                      <p><span class="labels-outputfields">Phone:</span>&nbsp;{{contact.Phone}}</p>
+                      <p><span class="labels-outputfields">Mobile:</span>&nbsp;{{contact.MobilePhone}}</p>
+                      <p><span class="labels-outputfields">Influence:</span>&nbsp;</p>
+                    </div>
+                    <div class="col">
+                      <p><span class="labels-outputfields">Address</span></p>
+                      <p>{{contact.MailingStreet}}</p>
+                      <p>{{contact.MailingCity}}</p>
+                      <p>{{contact.MailingState}}</p>
+                      <p>{{contact.MailingPostalCode}}</p>
+                      <p>{{contact.MailingCountry}}</p>
+                    </div>
+                  </div>
+    			      </ion-item>
+    		      </div> <!-- / ng-switch-when="contacts" -->
+
+    		      <!--
+    		        A S S E T    L I S T
+    		      -->
+    		      <div ng-switch-when="assets" class="hasPadding">
+    						<div class="loading"  ng-hide="vm.assetsLoaded"><h2></h2><p></p><h2></h2><p></p><h2></h2><p></p></div>
+    		      	<ion-item class="asset item"
+    			        ng-repeat="asset in vm.assets"
+    			        >
+                  <div class="row">
+                    <div class="col">
+                      <h1>{{asset.Name}}</h1>
+                      <p><span class="labels-outputfields">Type:</span>&nbsp;{{asset.CylinderType__c}}</p>
+                      <p><span class="labels-outputfields">Capacity:</span>&nbsp;{{asset.Capacity__c}}kg</p>
+                      <p><span class="labels-outputfields">Code:</span>&nbsp;{{asset.ProductCode__c}}</p>
+                      <p><span class="labels-outputfields">Quantity:</span>&nbsp;{{asset.Quantity__c}}</p>
+                      <p><span class="labels-outputfields">Tare Weight:</span>&nbsp;{{asset.Tare_Weight__c}}</p>
+                    </div>
+                    <div class="col">
+                      <img src="{{ ::vm.resourcePath }}img/{{asset.ProductCode__c}}.jpg" style="width: 150px">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <p><span class="labels-outputfields">Usage:</span></p>
+                      <p>{{asset.Usage__c}}</p>
+                    </div>
+                  </div>
+    			      </ion-item>
+    		      </div> <!-- / ng-switch-when="assets" -->
+
+            </div> <!-- / switch -->
+
+          </div> <!-- / id="assets-and-contacts-list" -->
+        </ion-scroll>
+
+	    </div> <!-- / id="account-related" -->
+
+	  </div> <!-- / account-details -->
+
+  </ion-content>
+</ion-view>
+
+<script id="my-modal.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar>
+            <h1 class="title">New Contact</h1>
+        </ion-header-bar>
+        <ion-content>
+            <form name="contactForm" ng-submit="vm.addContact(c)">
+                <div class="list">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Account</span>
+                        <input class="padding-left-10" type="text" disabled value="{{vm.account.Name}}"/>
+                        <input class="padding-left-10" type="hidden" ng-model="c.AccountId" disabled value="{{vm.account.Id}}"/>
+
+                        <input class="padding-left-10" type="hidden" ng-model="c.AccountName" disabled value="{{vm.account.Name}}"/>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">First Name</span>
+                        <input type="text" ng-model="c.FirstName" placeholder="John" required/>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Last Name</span>
+                        <input type="text" ng-model="c.LastName"  placeholder="Smith" required/>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Title</span>
+                        <input type="text" ng-model="c.Title"  placeholder="Account Manager" />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Mobile</span>
+                        <input type="text" ng-model="c.MobilePhone"  placeholder="07771234567" required/>
+                        <div class="errorField" ng-if="mobilePhone_error">{{mobilePhone_error}}</div>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Email</span>
+                        <input type="text" ng-model="c.Email" placeholder="john.smith@company.com" required/>
+                        <div class="errorField" ng-if="Email_error">{{Email_error}}</div>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="button-full button icon-left ion-checkmark button-positive {{submitAllowedClass}}"  ng-disabled="contactForm.$invalid">Submit</button>
+                    </div>
+                    <div class="col">
+                        <a class="button-full button icon-left ion-close button-assertive" ng-click="closeModal()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </ion-content>
+    </ion-modal-view>
+</script>
+<script id="new-account.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-header-bar>
+            <h1 class="title">New Account</h1>
+        </ion-header-bar>
+        <ion-content>
+            <form name="accountForm" ng-submit="vm.addAccount(c)">
+                <div class="list">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Account Name</span>
+                        <input class="padding-left-10" type="text" value="{{vm.account.Name}}"/>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Email</span>
+                        <input type="text" ng-model="c.Email" placeholder="john.smith@company.com" required/>
+                        <div class="errorField" ng-if="Email_error">{{Email_error}}</div>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button class="button-full button icon-left ion-checkmark button-positive {{submitAllowedClass}}"  ng-disabled="accountForm.$invalid">Submit</button>
+                    </div>
+                    <div class="col">
+                        <a class="button-full button icon-left ion-close button-assertive" ng-click="closeAccountModal()">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </ion-content>
+    </ion-modal-view>
+</script>

@@ -1,0 +1,19 @@
+// loading.scss
+
+.loading h1, .loading p {
+	background : $item-divider-bg;
+	display:block;
+}
+
+.loading h1, .loading h2 {
+	background : darken($item-divider-bg, 10%);
+	width: 33%;
+	height: 1.2em;
+	margin : 5px 0 10px;
+}
+
+.loading p {
+	width: 90%;
+	height: 1em;
+	margin-bottom: 5px;
+}
