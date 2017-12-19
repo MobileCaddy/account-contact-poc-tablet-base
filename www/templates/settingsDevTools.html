@@ -1,11 +1,11 @@
 <ion-view title="Debug Tools">
-	<ion-content>
-  	<ion-list>
-    	<div class="list list-inset">
-    		<a class="item item-icon-left" href="#/app/settings/mti">
-    	    	<i class="icon ion-soup-can-outline"></i>
-    	    	Mobile Table Inspector
-    		</a>
+  <ion-content>
+    <ion-list>
+      <div class="list list-inset">
+        <a class="item item-icon-left" href="#/app/settings/mti">
+            <i class="icon ion-soup-can-outline"></i>
+            Mobile Table Inspector
+        </a>
         <a class="item item-icon-left" href="#/app/settings/testing">
             <i class="icon ion-erlenmeyer-flask"></i>
             Testing Resources
@@ -24,10 +24,10 @@
 
       <div class="list card">
         <div class="item item-divider">
-            <h4>Diagnostics &amp; Backup</h4>
+            <h4>Recovery &amp; Backup</h4>
         </div>
 
-        <a class="item item-icon-left" ng-click="forceSync()">
+        <a class="item item-icon-left" href="#/app/settings/mti-recovery">
           <i class="icon ion-android-sync"></i>
             Force Sync
         </a>
@@ -61,8 +61,8 @@
           <ion-radio ng-change="hbUpdate()" ng-model="heartbeatStatus" ng-value="'100105'">HB Refresh OK (100105)</ion-radio>
       </div>
 
-    	<div class="card">
-    		<div class="item item-divider">
+      <div class="card">
+        <div class="item item-divider">
           <h4>Application Details</h4>
         </div>
         <div class="item item-text-wrap">
@@ -177,6 +177,6 @@
 
         </div>
       </div>
-  	</ion-list>
+    </ion-list>
   </ion-content>
 </ion-view>
